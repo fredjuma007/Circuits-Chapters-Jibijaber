@@ -7,6 +7,14 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true, // ✅ ignore TS errors during build
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "cdn.sanity.io",
+      },
+    ],
+  },
 };
 
 export default nextConfig;

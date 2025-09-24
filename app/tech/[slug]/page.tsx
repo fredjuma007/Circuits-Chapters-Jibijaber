@@ -71,7 +71,7 @@ interface TechPostPageProps {
 }
 
 export default async function TechPostPage({ params }: TechPostPageProps) {
-  const { slug } = params
+  const { slug } = await params
   const post = await getPost(slug)
 
   if (!post) {

@@ -10,6 +10,8 @@ import Link from "next/link"
 import { notFound } from "next/navigation"
 import PostCard from "@/components/post-card"
 
+export const revalidate = 60;
+
 async function getPost(slug: string): Promise<Post | null> {
   try {
     const query = `

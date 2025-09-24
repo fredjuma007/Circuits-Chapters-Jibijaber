@@ -61,6 +61,7 @@ async function getRelatedPosts(categoryId: string, currentPostId: string): Promi
     `
 
     const posts = await client.fetch(query, { categoryId, currentPostId })
+    { cache: "no-store" }
     return posts || []
   } catch (error) {
     console.error("Error fetching related posts:", error)

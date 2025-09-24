@@ -10,8 +10,10 @@ import "./globals.css"
 export const metadata: Metadata = {
   title: "Circuits & Chapters Jibijaber",
   description: "Where Tech Sparks Meet Story Pages - A blog exploring technology and literature",
-  generator: "v0.app",
+  generator: "Next.js",
 }
+
+export const revalidate = 0
 
 export default function RootLayout({
   children,

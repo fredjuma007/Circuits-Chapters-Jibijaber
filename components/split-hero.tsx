@@ -59,8 +59,8 @@ export function SplitHero() {
             {[
               { icon: Code, title: "Development", desc: "Latest frameworks & tools" },
               { icon: Zap, title: "Hardware", desc: "Cutting-edge devices" },
-              { icon: Sparkles, title: "AI & ML", desc: "Future technologies" },
-              { icon: ArrowRight, title: "Trends", desc: "Industry insights" },
+              //{ icon: Sparkles, title: "AI & ML", desc: "Future technologies" },
+              //{ icon: ArrowRight, title: "Trends", desc: "Industry insights" },
             ].map((item, index) => (
               <div
                 key={item.title}
@@ -121,8 +121,8 @@ export function SplitHero() {
             {[
               { icon: BookOpen, title: "Reviews", desc: "Honest & insightful" },
               { icon: Bookmark, title: "Curated Lists", desc: "Handpicked favorites" },
-              { icon: Sparkles, title: "Author Spotlights", desc: "Meet the creators" },
-              { icon: ArrowRight, title: "Analysis", desc: "Deep literary dives" },
+             // { icon: Sparkles, title: "Author Spotlights", desc: "Meet the creators" },
+              //{ icon: ArrowRight, title: "Analysis", desc: "Deep literary dives" },
             ].map((item, index) => (
               <div
                 key={item.title}

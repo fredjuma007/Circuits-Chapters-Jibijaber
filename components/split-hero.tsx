@@ -2,15 +2,29 @@
 
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, Zap, BookOpen } from "lucide-react"
-import { useState } from "react"
+import { ArrowRight, Zap, BookOpen, Sparkles, Code, Bookmark } from "lucide-react"
+import { useState, useEffect } from "react"
 
 export function SplitHero() {
   const [hoveredSide, setHoveredSide] = useState<"tech" | "books" | null>(null)
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if (!mounted) return null
 
   return (
-    <section className="min-h-screen flex flex-col lg:flex-row">
-      {/* Tech Side */}
+    <section className="min-h-screen flex flex-col lg:flex-row relative overflow-hidden">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl animate-pulse" />
+        <div
+          className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl animate-pulse"
+          style={{ animationDelay: "1s" }}
+        />
+      </div>
+
       <div
         className={`flex-1 relative overflow-hidden transition-all duration-700 ease-out tech-theme ${
           hoveredSide === "tech" ? "lg:flex-[1.1]" : hoveredSide === "books" ? "lg:flex-[0.9]" : ""
@@ -18,43 +32,61 @@ export function SplitHero() {
         onMouseEnter={() => setHoveredSide("tech")}
         onMouseLeave={() => setHoveredSide(null)}
       >
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-blue-800/30" />
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 via-blue-500/5 to-transparent" />
         <div className="relative z-10 h-full flex flex-col justify-center items-center p-8 lg:p-16 text-center">
-          <div className="mb-8">
-            <Zap className="w-16 h-16 mx-auto mb-6 text-blue-500" />
-            <h2 className="text-4xl lg:text-6xl font-bold mb-4 text-balance">Tech</h2>
-            <p className="text-xl lg:text-2xl text-muted-foreground mb-8 text-pretty">Where innovation sparks</p>
+          <div className="mb-12 max-w-2xl">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/10 border border-blue-500/20 rounded-full text-sm font-medium text-blue-600 dark:text-blue-400 mb-8">
+              <Sparkles className="w-4 h-4" />
+              Where Tech Sparks Meet Innovation
+            </div>
+
+            <h1 className="text-5xl lg:text-7xl font-bold mb-6 text-balance leading-tight">
+              <span className="bg-gradient-to-r from-blue-600 via-blue-500 to-blue-400 bg-clip-text text-transparent">
+                Circuits
+              </span>
+              <br />
+              <span className="text-foreground/90">& Innovation</span>
+            </h1>
+
+            <p className="text-xl lg:text-2xl text-muted-foreground mb-8 text-pretty leading-relaxed">
+              Exploring the cutting edge of technology, from gadgets to code,
+              <br className="hidden lg:block" />
+              where every spark ignites possibility
+            </p>
           </div>
 
-          <div className="grid grid-cols-2 gap-4 mb-8 w-full max-w-md">
-            <div className="bg-background/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
-              <h3 className="font-semibold mb-2">Gadgets & Devices</h3>
-              <p className="text-sm text-muted-foreground">Latest tech reviews</p>
-            </div>
-            <div className="bg-background/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
-              <h3 className="font-semibold mb-2">Apps & Tools</h3>
-              <p className="text-sm text-muted-foreground">Productivity boosters</p>
-            </div>
-            <div className="bg-background/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
-              <h3 className="font-semibold mb-2">Developer Resources</h3>
-              <p className="text-sm text-muted-foreground">Coding insights</p>
-            </div>
-            <div className="bg-background/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
-              <h3 className="font-semibold mb-2">Industry Trends</h3>
-              <p className="text-sm text-muted-foreground">Future predictions</p>
-            </div>
+          <div className="grid grid-cols-2 gap-3 mb-10 w-full max-w-lg">
+            {[
+              { icon: Code, title: "Development", desc: "Latest frameworks & tools" },
+              { icon: Zap, title: "Hardware", desc: "Cutting-edge devices" },
+              { icon: Sparkles, title: "AI & ML", desc: "Future technologies" },
+              { icon: ArrowRight, title: "Trends", desc: "Industry insights" },
+            ].map((item, index) => (
+              <div
+                key={item.title}
+                className="group bg-background/40 backdrop-blur-sm rounded-xl p-4 border border-blue-500/20 hover:border-blue-500/40 hover:bg-blue-500/5 transition-all duration-300"
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
+                <item.icon className="w-6 h-6 text-blue-500 mb-2 group-hover:scale-110 transition-transform duration-300" />
+                <h3 className="font-semibold text-sm mb-1">{item.title}</h3>
+                <p className="text-xs text-muted-foreground">{item.desc}</p>
+              </div>
+            ))}
           </div>
 
-          <Button asChild size="lg" className="group">
+          <Button
+            asChild
+            size="lg"
+            className="group bg-blue-600 hover:bg-blue-700 text-white shadow-lg hover:shadow-xl transition-all duration-300"
+          >
             <Link href="/tech">
-              Explore Tech
+              Explore Tech Universe
               <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           </Button>
         </div>
       </div>
 
-      {/* Books Side */}
       <div
         className={`flex-1 relative overflow-hidden transition-all duration-700 ease-out books-theme ${
           hoveredSide === "books" ? "lg:flex-[1.1]" : hoveredSide === "tech" ? "lg:flex-[0.9]" : ""
@@ -62,40 +94,64 @@ export function SplitHero() {
         onMouseEnter={() => setHoveredSide("books")}
         onMouseLeave={() => setHoveredSide(null)}
       >
-        <div className="absolute inset-0 bg-gradient-to-br from-amber-600/20 to-amber-800/30" />
+        <div className="absolute inset-0 bg-gradient-to-br from-amber-600/10 via-amber-500/5 to-transparent" />
         <div className="relative z-10 h-full flex flex-col justify-center items-center p-8 lg:p-16 text-center">
-          <div className="mb-8">
-            <BookOpen className="w-16 h-16 mx-auto mb-6 text-amber-500" />
-            <h2 className="text-4xl lg:text-6xl font-bold mb-4 text-balance">Books</h2>
-            <p className="text-xl lg:text-2xl text-muted-foreground mb-8 text-pretty">Where stories come alive</p>
+          <div className="mb-12 max-w-2xl">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-amber-500/10 border border-amber-500/20 rounded-full text-sm font-medium text-amber-600 dark:text-amber-400 mb-8">
+              <BookOpen className="w-4 h-4" />
+              Where Stories Come Alive
+            </div>
+
+            <h1 className="text-5xl lg:text-7xl font-bold mb-6 text-balance leading-tight">
+              <span className="bg-gradient-to-r from-amber-600 via-amber-500 to-amber-400 bg-clip-text text-transparent">
+                Chapters
+              </span>
+              <br />
+              <span className="text-foreground/90">& Stories</span>
+            </h1>
+
+            <p className="text-xl lg:text-2xl text-muted-foreground mb-8 text-pretty leading-relaxed">
+              Diving deep into literary worlds, from classics to contemporary,
+              <br className="hidden lg:block" />
+              where every page turns into adventure
+            </p>
           </div>
 
-          <div className="grid grid-cols-2 gap-4 mb-8 w-full max-w-md">
-            <div className="bg-background/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
-              <h3 className="font-semibold mb-2">Reviews</h3>
-              <p className="text-sm text-muted-foreground">Honest opinions</p>
-            </div>
-            <div className="bg-background/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
-              <h3 className="font-semibold mb-2">Recommendations</h3>
-              <p className="text-sm text-muted-foreground">Curated lists</p>
-            </div>
-            <div className="bg-background/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
-              <h3 className="font-semibold mb-2">Author Spotlights</h3>
-              <p className="text-sm text-muted-foreground">Meet the writers</p>
-            </div>
-            <div className="bg-background/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
-              <h3 className="font-semibold mb-2">Book vs. Screen</h3>
-              <p className="text-sm text-muted-foreground">Adaptation analysis</p>
-            </div>
+          <div className="grid grid-cols-2 gap-3 mb-10 w-full max-w-lg">
+            {[
+              { icon: BookOpen, title: "Reviews", desc: "Honest & insightful" },
+              { icon: Bookmark, title: "Curated Lists", desc: "Handpicked favorites" },
+              { icon: Sparkles, title: "Author Spotlights", desc: "Meet the creators" },
+              { icon: ArrowRight, title: "Analysis", desc: "Deep literary dives" },
+            ].map((item, index) => (
+              <div
+                key={item.title}
+                className="group bg-background/40 backdrop-blur-sm rounded-xl p-4 border border-amber-500/20 hover:border-amber-500/40 hover:bg-amber-500/5 transition-all duration-300"
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
+                <item.icon className="w-6 h-6 text-amber-500 mb-2 group-hover:scale-110 transition-transform duration-300" />
+                <h3 className="font-semibold text-sm mb-1">{item.title}</h3>
+                <p className="text-xs text-muted-foreground">{item.desc}</p>
+              </div>
+            ))}
           </div>
 
-          <Button asChild size="lg" className="group">
+          <Button
+            asChild
+            size="lg"
+            className="group bg-amber-600 hover:bg-amber-700 text-white shadow-lg hover:shadow-xl transition-all duration-300"
+          >
             <Link href="/books">
-              Explore Books
+              Explore Literary World
               <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           </Button>
         </div>
+      </div>
+
+      <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 hidden lg:block">
+        <div className="w-px h-32 bg-gradient-to-b from-transparent via-border to-transparent" />
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-background border-2 border-border rounded-full" />
       </div>
     </section>
   )

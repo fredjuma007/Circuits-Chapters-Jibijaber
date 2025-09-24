@@ -102,35 +102,50 @@ export function Navigation() {
             isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
           }`}
         >
-          <div className="py-4 space-y-1 border-t border-border/50">
-            {[
-              { href: "/", label: "Home" },
-              { href: "/tech", label: "Tech" },
-              { href: "/books", label: "Books" },
-              { href: "/about", label: "About" },
-              { href: "/contact", label: "Contact" },
-            ].map((item, index) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="block px-4 py-3 text-sm font-medium text-foreground/80 hover:text-foreground hover:bg-accent/50 rounded-lg transition-all duration-200"
-                onClick={() => setIsOpen(false)}
-                style={{ animationDelay: `${index * 50}ms` }}
-              >
-                {item.label}
-              </Link>
-            ))}
-            <div className="px-4 py-3">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className="w-full justify-start"
-              >
-                <Sun className="h-4 w-4 mr-2 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-                <Moon className="absolute h-4 w-4 ml-2 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-                Toggle theme
-              </Button>
+          <div className="relative py-4 space-y-1 border-t border-border/50 bg-background/95 backdrop-blur-xl rounded-b-2xl shadow-2xl">
+            <div className="absolute inset-0 overflow-hidden rounded-b-2xl">
+              <div className="absolute top-2 left-4 w-2 h-2 bg-blue-500/30 rounded-full animate-float" />
+              <div className="absolute top-6 right-8 w-1.5 h-1.5 bg-amber-500/40 rounded-full animate-float-delayed" />
+              <div className="absolute bottom-4 left-1/3 w-1 h-1 bg-purple-500/30 rounded-full animate-float" />
+              <div className="absolute bottom-2 right-1/4 w-2 h-2 bg-cyan-500/20 rounded-full animate-float-delayed" />
+            </div>
+
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/50 to-background/80 rounded-b-2xl" />
+
+            <div className="relative z-10">
+              {[
+                { href: "/", label: "Home" },
+                { href: "/tech", label: "Tech" },
+                { href: "/books", label: "Books" },
+                { href: "/about", label: "About" },
+                { href: "/contact", label: "Contact" },
+              ].map((item, index) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="group relative block px-6 py-4 text-sm font-medium text-foreground/80 hover:text-foreground rounded-xl mx-2 transition-all duration-300 hover:bg-gradient-to-r hover:from-blue-500/10 hover:via-purple-500/5 hover:to-amber-500/10 hover:shadow-lg hover:shadow-blue-500/10"
+                  onClick={() => setIsOpen(false)}
+                  style={{ animationDelay: `${index * 50}ms` }}
+                >
+                  <span className="relative z-10">{item.label}</span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-shimmer rounded-xl" />
+                  <div className="absolute bottom-0 left-6 right-6 h-0.5 bg-gradient-to-r from-blue-500 via-purple-500 to-amber-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-full" />
+                </Link>
+              ))}
+
+              <div className="px-6 py-4">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                  className="w-full justify-start relative group bg-gradient-to-r from-background/50 to-background/30 hover:from-blue-500/10 hover:to-amber-500/10 border border-border/30 hover:border-border/60 rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/10"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-shimmer rounded-xl" />
+                  <Sun className="h-4 w-4 mr-2 rotate-0 scale-100 transition-all duration-300 dark:-rotate-90 dark:scale-0 relative z-10" />
+                  <Moon className="absolute h-4 w-4 ml-2 rotate-90 scale-0 transition-all duration-300 dark:rotate-0 dark:scale-100 z-10" />
+                  <span className="relative z-10">Toggle theme</span>
+                </Button>
+              </div>
             </div>
           </div>
         </div>

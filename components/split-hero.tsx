@@ -37,21 +37,21 @@ export function SplitHero() {
           <div className="mb-12 max-w-2xl">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/10 border border-blue-500/20 rounded-full text-sm font-medium text-blue-600 dark:text-blue-400 mb-8">
               <Sparkles className="w-4 h-4" />
-              Where Tech Sparks Meet Innovation
+              Dive into Tech Wonders
             </div>
 
             <h1 className="text-5xl lg:text-7xl font-bold mb-6 text-balance leading-tight">
               <span className="bg-gradient-to-r from-blue-600 via-blue-500 to-blue-400 bg-clip-text text-transparent">
-                Circuits
+                Tech
               </span>
               <br />
-              <span className="text-foreground/90">& Innovation</span>
+              <span className="text-foreground/90">Jibijaber</span>
             </h1>
 
             <p className="text-xl lg:text-2xl text-muted-foreground mb-8 text-pretty leading-relaxed">
-              Exploring the cutting edge of technology, from gadgets to code,
+              Exploring the world of technology from tech news to deep dives and more
               <br className="hidden lg:block" />
-              where every spark ignites possibility
+              your go-to source for all things tech
             </p>
           </div>
 
@@ -99,7 +99,7 @@ export function SplitHero() {
           <div className="mb-12 max-w-2xl">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-amber-500/10 border border-amber-500/20 rounded-full text-sm font-medium text-amber-600 dark:text-amber-400 mb-8">
               <BookOpen className="w-4 h-4" />
-              Where Stories Come Alive
+              Explore Literary Worlds
             </div>
 
             <h1 className="text-5xl lg:text-7xl font-bold mb-6 text-balance leading-tight">
@@ -111,9 +111,9 @@ export function SplitHero() {
             </h1>
 
             <p className="text-xl lg:text-2xl text-muted-foreground mb-8 text-pretty leading-relaxed">
-              Diving deep into literary worlds, from classics to contemporary,
+              Diving deep into literary worlds, reviews, and general bookish delights
               <br className="hidden lg:block" />
-              where every page turns into adventure
+              your gateway to all things books and beyond
             </p>
           </div>
 

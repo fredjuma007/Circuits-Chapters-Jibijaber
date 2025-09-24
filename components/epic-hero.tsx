@@ -160,22 +160,26 @@ export function EpicHero() {
 
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <Button
-            size="lg"
-            className="group px-8 py-4 text-lg font-semibold bg-primary hover:bg-primary/90 transition-all duration-300 hover:scale-105"
-          >
-            Explore Tech
-            <Zap className="ml-2 w-5 h-5 group-hover:animate-pulse" />
-          </Button>
+          <a href="/tech" tabIndex={-1}>
+            <Button
+              size="lg"
+              className="group px-8 py-4 text-lg font-semibold bg-primary hover:bg-primary/90 transition-all duration-300 hover:scale-105"
+            >
+              Explore Tech
+              <Zap className="ml-2 w-5 h-5 group-hover:animate-pulse" />
+            </Button>
+          </a>
 
-          <Button
-            size="lg"
-            variant="outline"
-            className="group px-8 py-4 text-lg font-semibold border-amber-500 text-amber-600 hover:bg-amber-500 hover:text-white transition-all duration-300 hover:scale-105 bg-transparent"
-          >
-            Discover Books
-            <BookOpen className="ml-2 w-5 h-5 group-hover:animate-pulse" />
-          </Button>
+          <a href="/books" tabIndex={-1}>
+            <Button
+              size="lg"
+              variant="outline"
+              className="group px-8 py-4 text-lg font-semibold border-amber-500 text-amber-600 hover:bg-amber-500 hover:text-white transition-all duration-300 hover:scale-105 bg-transparent"
+            >
+              Discover Books
+              <BookOpen className="ml-2 w-5 h-5 group-hover:animate-pulse" />
+            </Button>
+          </a>
         </div>
 
         {/* Scroll Indicator */}

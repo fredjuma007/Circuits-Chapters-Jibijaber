@@ -1,14 +1,11 @@
-@import "tailwindcss";
-@import "tw-animate-css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Base colors */
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
-
-  /* Neutral colors */
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
@@ -40,20 +37,6 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
-
-  /* Tech theme colors (electric blue) */
-  --tech-primary: oklch(0.55 0.25 258);
-  --tech-primary-foreground: oklch(0.98 0.005 106);
-  --tech-secondary: oklch(0.92 0.05 258);
-  --tech-accent: oklch(0.45 0.3 258);
-  --tech-muted: oklch(0.95 0.02 258);
-
-  /* Books theme colors (warm amber) */
-  --books-primary: oklch(0.65 0.15 65);
-  --books-primary-foreground: oklch(0.98 0.005 106);
-  --books-secondary: oklch(0.92 0.08 65);
-  --books-accent: oklch(0.55 0.2 65);
-  --books-muted: oklch(0.95 0.05 65);
 }
 
 .dark {
@@ -89,21 +72,11 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(0.269 0 0);
   --sidebar-ring: oklch(0.439 0 0);
-
-  /* Dark mode tech colors */
-  --tech-primary: oklch(0.65 0.25 258);
-  --tech-secondary: oklch(0.15 0.05 258);
-  --tech-accent: oklch(0.55 0.3 258);
-  --tech-muted: oklch(0.12 0.02 258);
-
-  /* Dark mode books colors */
-  --books-primary: oklch(0.75 0.15 65);
-  --books-secondary: oklch(0.15 0.08 65);
-  --books-accent: oklch(0.65 0.2 65);
-  --books-muted: oklch(0.12 0.05 65);
 }
 
 @theme inline {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -149,21 +122,4 @@
   body {
     @apply bg-background text-foreground;
   }
-}
-
-/* Custom utility classes for themes */
-.tech-theme {
-  --primary: var(--tech-primary);
-  --primary-foreground: var(--tech-primary-foreground);
-  --secondary: var(--tech-secondary);
-  --accent: var(--tech-accent);
-  --muted: var(--tech-muted);
-}
-
-.books-theme {
-  --primary: var(--books-primary);
-  --primary-foreground: var(--books-primary-foreground);
-  --secondary: var(--books-secondary);
-  --accent: var(--books-accent);
-  --muted: var(--books-muted);
 }

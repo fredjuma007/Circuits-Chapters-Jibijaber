@@ -3,18 +3,17 @@
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
 import { ShareButton } from "@/components/share-button"
 import { client, type Post, urlFor } from "@/lib/sanity"
 import { calculateReadingTime } from "@/lib/reading-time"
 import { PortableText } from "@portabletext/react"
 import { Calendar, ArrowLeft, Clock } from "lucide-react"
 import Image from "next/image"
-import Link from "next/link"
 import { notFound } from "next/navigation"
 import PostCard from "@/components/post-card"
 import { techPortableTextComponents } from "@/lib/portable-text-components"
 import { useEffect, useState } from "react"
+import {BackButton} from "@/components/backbutton"
 
 async function getPost(slug: string): Promise<Post | null> {
   try {
@@ -158,12 +157,9 @@ export default function TechPostPageClient({ slug }: TechPostPageProps) {
         <div className="relative bg-gradient-to-br from-blue-500/5 via-cyan-500/5 to-blue-600/5 border-b border-blue-500/10">
           <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:50px_50px]" />
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-            <Button variant="ghost" asChild className="mb-4 hover:bg-blue-500/10">
-              <Link href="/tech">
-                <ArrowLeft className="w-4 h-4 mr-2" />
-                Back to Tech
-              </Link>
-            </Button>
+
+            <BackButton theme="tech" label="Back to Tech" />
+            <div className="h-4" />
 
             {post.featuredImage && (
               <div className="relative aspect-video mb-6 overflow-hidden rounded-xl border border-blue-500/20 shadow-2xl">

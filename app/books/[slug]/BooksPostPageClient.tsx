@@ -3,18 +3,17 @@
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
 import { ShareButton } from "@/components/share-button"
 import { client, type Post, urlFor } from "@/lib/sanity"
 import { calculateReadingTime } from "@/lib/reading-time"
 import { PortableText } from "@portabletext/react"
 import { Calendar, ArrowLeft, BookOpen } from "lucide-react"
 import Image from "next/image"
-import Link from "next/link"
 import { notFound } from "next/navigation"
 import PostCard from "@/components/post-card"
 import { booksPortableTextComponents } from "@/lib/portable-text-components"
 import { useEffect, useState } from "react"
+import {BackButton} from "@/components/backbutton"
 
 async function getPost(slug: string): Promise<Post | null> {
   try {
@@ -181,12 +180,8 @@ export default function BooksPostPageClient({ slug }: BooksPostPageClientProps) 
         <div className="relative bg-gradient-to-br from-amber-500/5 via-orange-500/5 to-amber-600/5 border-b border-amber-500/10">
           <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:50px_50px]" />
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-            <Button variant="ghost" asChild className="mb-4 hover:bg-amber-500/10">
-              <Link href="/books">
-                <ArrowLeft className="w-4 h-4 mr-2" />
-                Back to Books
-              </Link>
-            </Button>
+            <BackButton theme="books" label="Back to Books" />
+            <div className="h-4" />
 
             {post.featuredImage && (
               <div className="relative aspect-video mb-6 overflow-hidden rounded-xl border border-amber-500/20 shadow-2xl">
@@ -269,7 +264,20 @@ export default function BooksPostPageClient({ slug }: BooksPostPageClientProps) 
                       <BookOpen className="w-4 h-4 mr-2" />
                       Reading Time: {readingTime} minutes
                     </span>
-                    <span className="text-muted-foreground"></span>
+                    <span className="text-muted-foreground">
+                      {[
+                      "Grab a mug of tea ☕",
+                      "Wrap yourself in a blanket 🧣",
+                      "Light a scented candle 🕯️",
+                      "Find a comfy chair 🛋️",
+                      "Put on your favorite playlist 🎶",
+                      "Snuggle up with your pet 🐾",
+                      "Let the rain set the mood 🌧️",
+                      "Enjoy a sweet treat 🍪",
+                      "Dim the lights for ambiance 💡",
+                      "Take a deep breath and relax 🌿"
+                      ][Math.floor(Math.random() * 10)]}
+                    </span>
                   </div>
                 </div>
 

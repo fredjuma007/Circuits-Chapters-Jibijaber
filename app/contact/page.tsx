@@ -61,7 +61,9 @@ export default function ContactPage() {
                   Get In Touch
                 </h1>
                 <p className="text-lg text-muted-foreground max-w-2xl leading-relaxed">
-                  Have a question, suggestion, or just want to say hello? We'd love to hear from you.
+                  I'd love to hear from you! Whether you're curious about
+                  my latest tech review, need a book recommendation, or want to collaborate, feel free to reach out using the
+                  form below or via email. Let's connect and share our passion for technology and literature!
                 </p>
               </div>
             </div>
@@ -82,7 +84,7 @@ export default function ContactPage() {
                     <MessageSquare className="relative w-6 h-6 text-purple-500" />
                   </div>
                   <span className="bg-gradient-to-r from-blue-600 via-purple-500 to-amber-600 bg-clip-text text-transparent">
-                    Send us a message
+                    Send a message
                   </span>
                 </CardTitle>
               </CardHeader>

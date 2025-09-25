@@ -44,12 +44,14 @@ export default function AboutPage() {
               <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-amber-500/5 rounded-3xl blur-xl" />
               <div className="relative p-8">
                 <h2 className="text-3xl font-bold mb-6 text-balance bg-gradient-to-r from-blue-600 via-purple-500 to-amber-600 bg-clip-text text-transparent">
-                  Our Mission
+                  What is Circuits & Chapters?
                 </h2>
                 <p className="text-lg text-muted-foreground text-pretty leading-relaxed">
-                  We believe that technology and literature are not separate worlds, but interconnected realms that
-                  shape our understanding of the present and future. Our mission is to explore the fascinating
-                  intersection where digital innovation meets timeless storytelling.
+                  Circuits & Chapters is your go-to blog for the latest in technology and book reviews. We bridge the gap
+                  between cutting-edge tech trends and timeless literary insights, providing readers with a unique blend
+                  of content that sparks curiosity and fuels imagination. Whether you're a tech enthusiast eager to stay
+                  ahead of the curve or a book lover looking for your next great read, Circuits & Chapters has something
+                  for everyone.
                 </p>
               </div>
             </div>
@@ -60,7 +62,7 @@ export default function AboutPage() {
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-muted/30 to-transparent" />
           <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-3xl font-bold text-center mb-12 text-balance bg-gradient-to-r from-blue-600 via-purple-500 to-amber-600 bg-clip-text text-transparent">
-              What We Cover
+              What I Cover
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -159,17 +161,19 @@ export default function AboutPage() {
               <Users className="relative w-12 h-12 mx-auto text-primary drop-shadow-lg" />
             </div>
             <h2 className="text-3xl font-bold mb-8 text-balance bg-gradient-to-r from-blue-600 via-purple-500 to-amber-600 bg-clip-text text-transparent">
-              Our Team
+              Who Am I?
             </h2>
             <div className="space-y-6">
               <p className="text-lg text-muted-foreground text-pretty leading-relaxed">
-                We're a passionate team of tech enthusiasts and book lovers who believe in the power of both digital
-                innovation and timeless storytelling. Our diverse backgrounds in technology, literature, and journalism
-                allow us to bring unique perspectives to every piece we create.
+                I'm Fred, a tech enthusiast and avid reader with a passion for exploring the latest gadgets, software,
+                and literary masterpieces. This blog is my personal space to share insights, reviews, and recommendations
+                on the ever-evolving world of technology and the timeless joy of reading.
               </p>
               <p className="text-lg text-muted-foreground text-pretty leading-relaxed">
-                Whether we're diving deep into the latest AI breakthrough or exploring the themes in a contemporary
-                novel, we approach each topic with curiosity, critical thinking, and a commitment to quality content.
+                When I'm not writing or reading, you can find me tinkering with new tech, attending book fairs, or
+                engaging with fellow enthusiasts in online communities. I believe that technology and literature are not
+                separate worlds, but interconnected realms that shape our understanding of the present and future. My
+                mission is to explore the fascinating intersection where digital innovation meets timeless storytelling.
               </p>
             </div>
           </div>

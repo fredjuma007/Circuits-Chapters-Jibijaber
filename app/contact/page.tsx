@@ -181,7 +181,7 @@ export default function ContactPage() {
                   Email
                 </h3>
                 <p className="text-muted-foreground group-hover:text-foreground transition-colors duration-300">
-                  hello@circuitschapters.com
+                  circuitschapters@gmail.com
                 </p>
               </div>
 

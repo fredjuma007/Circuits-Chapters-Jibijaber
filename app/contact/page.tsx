@@ -20,12 +20,40 @@ export default function ContactPage() {
     message: "",
   })
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isLoading, setIsLoading] = useState(false)
+  const [isSuccess, setIsSuccess] = useState(false)
+  const [error, setError] = useState("")
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Contact form submission logic would go here
-    console.log("Contact form submitted:", formData)
-    // Reset form
-    setFormData({ name: "", email: "", subject: "", message: "" })
+    setIsLoading(true)
+    setError("")
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      })
+
+      const result = await response.json()
+
+      if (!response.ok) {
+        throw new Error(result.error || "Failed to send message")
+      }
+
+      setIsSuccess(true)
+      setFormData({ name: "", email: "", subject: "", message: "" })
+
+      // Reset success message after 5 seconds
+      setTimeout(() => setIsSuccess(false), 5000)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to send message")
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -61,9 +89,8 @@ export default function ContactPage() {
                   Get In Touch
                 </h1>
                 <p className="text-lg text-muted-foreground max-w-2xl leading-relaxed">
-                  I'd love to hear from you! Whether you're curious about
-                  my latest tech review, need a book recommendation, or want to collaborate, feel free to reach out using the
-                  form below or via email. Let's connect and share our passion for technology and literature!
+                  I'd love to hear from you! Whether you're curious about my latest tech review, need a book
+                  recommendation, or want to collaborate
                 </p>
               </div>
             </div>
@@ -90,6 +117,20 @@ export default function ContactPage() {
               </CardHeader>
 
               <CardContent className="relative">
+                {isSuccess && (
+                  <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
+                    <p className="text-green-800 font-medium">
+                      ✅ Message sent successfully! I'll get back to you soon.
+                    </p>
+                  </div>
+                )}
+
+                {error && (
+                  <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
+                    <p className="text-red-800 font-medium">❌ {error}</p>
+                  </div>
+                )}
+
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
@@ -103,6 +144,7 @@ export default function ContactPage() {
                         value={formData.name}
                         onChange={handleChange}
                         required
+                        disabled={isLoading}
                         className="border-purple-500/20 focus:border-purple-500/50 focus:ring-purple-500/25 transition-all duration-300"
                       />
                     </div>
@@ -117,6 +159,7 @@ export default function ContactPage() {
                         value={formData.email}
                         onChange={handleChange}
                         required
+                        disabled={isLoading}
                         className="border-purple-500/20 focus:border-purple-500/50 focus:ring-purple-500/25 transition-all duration-300"
                       />
                     </div>
@@ -133,6 +176,7 @@ export default function ContactPage() {
                       value={formData.subject}
                       onChange={handleChange}
                       required
+                      disabled={isLoading}
                       className="border-purple-500/20 focus:border-purple-500/50 focus:ring-purple-500/25 transition-all duration-300"
                     />
                   </div>
@@ -148,16 +192,18 @@ export default function ContactPage() {
                       value={formData.message}
                       onChange={handleChange}
                       required
+                      disabled={isLoading}
                       className="border-purple-500/20 focus:border-purple-500/50 focus:ring-purple-500/25 transition-all duration-300 resize-none"
                     />
                   </div>
 
                   <Button
                     type="submit"
-                    className="w-full bg-gradient-to-r from-blue-600 via-purple-600 to-amber-600 hover:from-blue-700 hover:via-purple-700 hover:to-amber-700 text-white font-medium py-3 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/25 hover:scale-[1.02]"
+                    disabled={isLoading}
+                    className="w-full bg-gradient-to-r from-blue-600 via-purple-600 to-amber-600 hover:from-blue-700 hover:via-purple-700 hover:to-amber-700 text-white font-medium py-3 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/25 hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                   >
                     <Send className="w-4 h-4 mr-2" />
-                    Send Message
+                    {isLoading ? "Sending..." : "Send Message"}
                   </Button>
                 </form>
               </CardContent>

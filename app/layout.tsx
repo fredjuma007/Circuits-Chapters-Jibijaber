@@ -6,6 +6,7 @@ import { Analytics } from "@vercel/analytics/next"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Suspense } from "react"
 import "./globals.css"
+import ScrollUpButton from "@/components/scrollup"
 
 export const metadata: Metadata = {
   title: "Circuits & Chapters Jibijaber",
@@ -29,6 +30,7 @@ export default function RootLayout({
           </ThemeProvider>
         </Suspense>
         <Analytics />
+        <ScrollUpButton />
       </body>
     </html>
   )

@@ -10,12 +10,37 @@ import { useState } from "react"
 
 export function Footer() {
   const [email, setEmail] = useState("")
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [message, setMessage] = useState("")
 
-  const handleNewsletterSubmit = (e: React.FormEvent) => {
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Newsletter signup logic would go here
-    console.log("Newsletter signup:", email)
-    setEmail("")
+    setIsSubmitting(true)
+    setMessage("")
+
+    try {
+      const response = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      })
+
+      const data = await response.json()
+
+      if (response.ok) {
+        setMessage(data.message)
+        setEmail("")
+      } else {
+        setMessage(data.error || "Failed to subscribe")
+      }
+    } catch (error) {
+      console.error("Newsletter signup error:", error)
+      setMessage("Failed to subscribe. Please try again.")
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -49,23 +74,34 @@ export function Footer() {
               Where Tech Sparks Meet Story Pages. Exploring the intersection of technology and literature.
             </p>
 
-            <form onSubmit={handleNewsletterSubmit} className="flex gap-2 max-w-sm">
-              <div className="relative flex-1">
-                <Input
-                  type="email"
-                  placeholder="Enter your email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  className="bg-background/50 backdrop-blur-sm border-border/50 focus:border-blue-500/50 focus:ring-blue-500/20 transition-all duration-300"
-                />
+            <form onSubmit={handleNewsletterSubmit} className="max-w-sm">
+              <div className="flex gap-2 mb-2">
+                <div className="relative flex-1">
+                  <Input
+                    type="email"
+                    placeholder="Enter your email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    disabled={isSubmitting}
+                    className="bg-background/50 backdrop-blur-sm border-border/50 focus:border-blue-500/50 focus:ring-blue-500/20 transition-all duration-300"
+                  />
+                </div>
+                <Button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="bg-gradient-to-r from-blue-500 to-amber-500 hover:from-blue-600 hover:to-amber-600 text-white border-0 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                >
+                  {isSubmitting ? "Subscribing..." : "Subscribe"}
+                </Button>
               </div>
-              <Button
-                type="submit"
-                className="bg-gradient-to-r from-blue-500 to-amber-500 hover:from-blue-600 hover:to-amber-600 text-white border-0 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
-              >
-                Subscribe
-              </Button>
+              {message && (
+                <p
+                  className={`text-sm mt-2 ${message.includes("Successfully") || message.includes("already subscribed") ? "text-green-600" : "text-red-600"}`}
+                >
+                  {message}
+                </p>
+              )}
             </form>
           </div>
 

@@ -31,27 +31,46 @@ export async function POST(request: NextRequest) {
       body: JSON.stringify({
         email: email,
         listIds: [1], // Default list ID - you can change this in Brevo dashboard
-        updateEnabled: true, // Update contact if already exists
-        attributes: {
-          FNAME: "", 
-          LNAME: "", 
-        },
+        // Removed updateEnabled to get proper duplicate errors
       }),
     })
 
     if (!brevoResponse.ok) {
-      const errorData = await brevoResponse.json()
+      let errorData
+      try {
+        const responseText = await brevoResponse.text()
+        errorData = responseText ? JSON.parse(responseText) : {}
+      } catch (parseError) {
+        console.error("Failed to parse Brevo error response:", parseError)
+        errorData = { message: "Unknown error" }
+      }
+
       console.error("Brevo API error:", errorData)
 
-      // Handle specific Brevo errors
-      if (errorData.code === "duplicate_parameter") {
+      // Handle specific Brevo errors for existing contacts
+      if (
+        errorData.code === "duplicate_parameter" ||
+        errorData.code === "contact_already_exist" ||
+        errorData.code === "duplicate_contact" ||
+        (errorData.message && errorData.message.toLowerCase().includes("already exists")) ||
+        (errorData.message && errorData.message.toLowerCase().includes("duplicate")) ||
+        (brevoResponse.status === 400 && errorData.message && errorData.message.toLowerCase().includes("contact"))
+      ) {
         return NextResponse.json({ message: "You are already subscribed to our newsletter!" }, { status: 200 })
       }
 
       return NextResponse.json({ error: "Failed to subscribe to newsletter" }, { status: 500 })
     }
 
-    const result = await brevoResponse.json()
+    let result
+    try {
+      const responseText = await brevoResponse.text()
+      result = responseText ? JSON.parse(responseText) : { success: true }
+    } catch (parseError) {
+      console.log("Brevo response was not JSON, but request was successful")
+      result = { success: true }
+    }
+
     console.log("Successfully added contact to Brevo:", result)
 
     return NextResponse.json({ message: "Successfully subscribed to newsletter!" }, { status: 200 })

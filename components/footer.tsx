@@ -5,7 +5,8 @@ import type React from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Github, Twitter, Linkedin, Mail } from "lucide-react"
+import { Github, Facebook, Instagram } from "lucide-react"
+import { SiX, SiGoodreads, SiTiktok } from "react-icons/si"
 import { useState } from "react"
 
 export function Footer() {
@@ -166,38 +167,78 @@ export function Footer() {
                 asChild
                 className="hover:bg-blue-500/10 hover:text-blue-500 hover:scale-110 transition-all duration-300"
               >
-                <a href="#" aria-label="GitHub">
+                <a href="https://github.com/fredjuma007" aria-label="GitHub" target="_blank" rel="noopener noreferrer">
                   <Github className="h-4 w-4" />
                 </a>
               </Button>
+
               <Button
                 variant="ghost"
                 size="sm"
                 asChild
-                className="hover:bg-blue-400/10 hover:text-blue-400 hover:scale-110 transition-all duration-300"
+                className="hover:bg-black/10 hover:text-black dark:hover:bg-white/10 dark:hover:text-white hover:scale-110 transition-all duration-300"
               >
-                <a href="#" aria-label="Twitter">
-                  <Twitter className="h-4 w-4" />
+                <a href="http://x.com/Fredjuma8Rennox" aria-label="X" target="_blank" rel="noopener noreferrer">
+                  <SiX className="h-4 w-4" />
                 </a>
               </Button>
+
               <Button
                 variant="ghost"
                 size="sm"
                 asChild
                 className="hover:bg-blue-600/10 hover:text-blue-600 hover:scale-110 transition-all duration-300"
               >
-                <a href="#" aria-label="LinkedIn">
-                  <Linkedin className="h-4 w-4" />
+                <a
+                  href="https://www.facebook.com/rennox.morrison/"
+                  aria-label="Facebook"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Facebook className="h-4 w-4" />
                 </a>
               </Button>
+
               <Button
                 variant="ghost"
                 size="sm"
                 asChild
-                className="hover:bg-amber-500/10 hover:text-amber-500 hover:scale-110 transition-all duration-300"
+                className="hover:bg-pink-500/10 hover:text-pink-500 hover:scale-110 transition-all duration-300"
               >
-                <a href="#" aria-label="Email">
-                  <Mail className="h-4 w-4" />
+                <a
+                  href="https://www.instagram.com/fred_peterz/"
+                  aria-label="Instagram"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Instagram className="h-4 w-4" />
+                </a>
+              </Button>
+
+              <Button
+                variant="ghost"
+                size="sm"
+                asChild
+                className="hover:bg-amber-600/10 hover:text-amber-600 hover:scale-110 transition-all duration-300"
+              >
+                <a
+                  href="https://www.goodreads.com/user/show/120096874-fred"
+                  aria-label="Goodreads"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <SiGoodreads className="h-4 w-4" />
+                </a>
+              </Button>
+
+              <Button
+                variant="ghost"
+                size="sm"
+                asChild
+                className="hover:bg-black/10 hover:text-black dark:hover:bg-white/10 dark:hover:text-white hover:scale-110 transition-all duration-300"
+              >
+                <a href="hhttps://www.tiktok.com/@fred_peters" aria-label="TikTok" target="_blank" rel="noopener noreferrer">
+                  <SiTiktok className="h-4 w-4" />
                 </a>
               </Button>
             </div>

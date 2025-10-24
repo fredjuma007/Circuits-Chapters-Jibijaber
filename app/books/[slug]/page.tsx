@@ -4,11 +4,11 @@ import { client } from "@/lib/sanity"
 export const revalidate = 60
 
 interface BooksPostPageProps {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }
 
 export default async function BooksPostPage({ params }: BooksPostPageProps) {
-  const { slug } = params
+  const { slug } = await params
 
   return <BooksPostPageClient slug={slug} />
 }

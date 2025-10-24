@@ -26,6 +26,11 @@ export async function generateStaticParams() {
   }))
 }
 
-export default function TechPostPage({ params }: { params: { slug: string } }) {
-  return <TechPostPageClient slug={params.slug} />
+interface TechPostPageProps {
+  params: Promise<{ slug: string }>
+}
+
+export default async function TechPostPage({ params }: TechPostPageProps) {
+  const { slug } = await params
+  return <TechPostPageClient slug={slug} />
 }

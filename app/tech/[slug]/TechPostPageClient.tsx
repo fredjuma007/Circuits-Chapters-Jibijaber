@@ -4,72 +4,17 @@ import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { Badge } from "@/components/ui/badge"
 import { ShareButton } from "@/components/share-button"
-import { client, type Post, urlFor } from "@/lib/sanity"
+import { type Post, urlFor } from "@/lib/sanity"
 import { calculateReadingTime } from "@/lib/reading-time"
 import { PortableText } from "@portabletext/react"
-import { Calendar, ArrowLeft, Clock } from "lucide-react"
+import { Calendar, Clock } from "lucide-react"
 import Image from "next/image"
 import { notFound } from "next/navigation"
 import PostCard from "@/components/post-card"
 import { techPortableTextComponents } from "@/lib/portable-text-components"
 import { useEffect, useState } from "react"
-import {BackButton} from "@/components/backbutton"
-
-async function getPost(slug: string): Promise<Post | null> {
-  try {
-    const query = `
-      *[_type == "post" && slug.current == $slug && category->type == "tech"][0] {
-        _id,
-        title,
-        slug,
-        category->{
-          _id,
-          name,
-          type,
-          subcategory,
-          slug
-        },
-        featuredImage,
-        excerpt,
-        content,
-        _createdAt
-      }
-    `
-
-    return await client.fetch(query, { slug })
-  } catch (error) {
-    console.error("Error fetching post:", error)
-    return null
-  }
-}
-
-async function getRelatedPosts(categoryId: string, currentPostId: string): Promise<Post[]> {
-  try {
-    const query = `
-      *[_type == "post" && category._ref == $categoryId && _id != $currentPostId] | order(_createdAt desc) [0...3] {
-        _id,
-        title,
-        slug,
-        category->{
-          _id,
-          name,
-          type,
-          subcategory,
-          slug
-        },
-        featuredImage,
-        excerpt,
-        _createdAt
-      }
-    `
-
-    const posts = await client.fetch(query, { categoryId, currentPostId })
-    return posts || []
-  } catch (error) {
-    console.error("Error fetching related posts:", error)
-    return []
-  }
-}
+import { BackButton } from "@/components/backbutton"
+import { getPostsByCategory, getRelatedPosts } from "@/app/actions/posts"
 
 interface TechPostPageProps {
   slug: string
@@ -84,7 +29,7 @@ export default function TechPostPageClient({ slug }: TechPostPageProps) {
   useEffect(() => {
     async function fetchData() {
       setLoading(true)
-      const fetchedPost = await getPost(slug)
+      const fetchedPost = await getPostsByCategory("tech", slug)
       if (!fetchedPost) {
         notFound()
       }
@@ -100,7 +45,6 @@ export default function TechPostPageClient({ slug }: TechPostPageProps) {
   if (loading || !post) {
     return (
       <div className="min-h-screen bg-background relative overflow-hidden flex items-center justify-center">
-        {/* Tech-themed floating particles */}
         <div className="fixed inset-0 pointer-events-none">
           <div className="absolute top-20 left-10 w-2 h-2 bg-blue-500/30 rounded-full animate-pulse" />
           <div className="absolute top-40 right-20 w-1 h-1 bg-cyan-400/40 rounded-full animate-ping" />
@@ -110,7 +54,6 @@ export default function TechPostPageClient({ slug }: TechPostPageProps) {
         </div>
 
         <div className="relative z-10 text-center">
-          {/* Animated loading spinner */}
           <div className="relative mb-8">
             <div className="w-16 h-16 border-4 border-blue-500/20 border-t-blue-500 rounded-full animate-spin mx-auto"></div>
             <div
@@ -119,7 +62,6 @@ export default function TechPostPageClient({ slug }: TechPostPageProps) {
             ></div>
           </div>
 
-          {/* Loading text with gradient */}
           <div className="space-y-4">
             <h2 className="text-2xl font-bold bg-gradient-to-r from-blue-400 via-cyan-300 to-blue-500 bg-clip-text text-transparent">
               Loading Tech Article
@@ -132,7 +74,6 @@ export default function TechPostPageClient({ slug }: TechPostPageProps) {
             <p className="text-sm text-muted-foreground">Preparing your reading experience...</p>
           </div>
 
-          {/* Subtle background glow */}
           <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-cyan-500/5 to-blue-600/5 rounded-full blur-3xl -z-10"></div>
         </div>
       </div>
@@ -141,7 +82,6 @@ export default function TechPostPageClient({ slug }: TechPostPageProps) {
 
   return (
     <div className="min-h-screen bg-background relative overflow-hidden">
-      {/* Tech-themed floating particles */}
       <div className="fixed inset-0 pointer-events-none">
         <div className="absolute top-20 left-10 w-2 h-2 bg-blue-500/30 rounded-full animate-pulse" />
         <div className="absolute top-40 right-20 w-1 h-1 bg-cyan-400/40 rounded-full animate-ping" />
@@ -153,11 +93,9 @@ export default function TechPostPageClient({ slug }: TechPostPageProps) {
       <Navigation />
 
       <main className="pt-16 relative z-10">
-        {/* Hero Section */}
         <div className="relative bg-gradient-to-br from-blue-500/5 via-cyan-500/5 to-blue-600/5 border-b border-blue-500/10">
           <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:50px_50px]" />
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-
             <BackButton theme="tech" label="Back to Tech" />
             <div className="h-4" />
 
@@ -205,14 +143,11 @@ export default function TechPostPageClient({ slug }: TechPostPageProps) {
           </div>
         </div>
 
-        {/* Article Content */}
         <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="relative">
-            {/* Subtle background pattern for reading comfort */}
             <div className="absolute inset-0 bg-gradient-to-b from-blue-500/[0.02] via-transparent to-cyan-500/[0.02] rounded-2xl" />
             <div className="absolute inset-0 bg-grid-white/[0.01] bg-[size:32px_32px] rounded-2xl" />
 
-            {/* Content container with enhanced styling */}
             <div className="relative bg-card/30 backdrop-blur-sm border border-blue-500/10 rounded-2xl p-6 lg:p-10 shadow-lg">
               <div
                 className="prose prose-lg lg:prose-xl max-w-none
@@ -246,7 +181,6 @@ export default function TechPostPageClient({ slug }: TechPostPageProps) {
           </div>
         </article>
 
-        {/* Related Posts */}
         {relatedPosts.length > 0 && (
           <section className="border-t border-blue-500/10 bg-gradient-to-br from-blue-500/5 to-cyan-500/5 py-16">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

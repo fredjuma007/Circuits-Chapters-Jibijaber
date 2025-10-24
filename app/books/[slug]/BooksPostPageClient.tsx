@@ -4,72 +4,17 @@ import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { Badge } from "@/components/ui/badge"
 import { ShareButton } from "@/components/share-button"
-import { client, type Post, urlFor } from "@/lib/sanity"
+import { type Post, urlFor } from "@/lib/sanity"
 import { calculateReadingTime } from "@/lib/reading-time"
 import { PortableText } from "@portabletext/react"
-import { Calendar, ArrowLeft, BookOpen } from "lucide-react"
+import { Calendar, BookOpen } from "lucide-react"
 import Image from "next/image"
 import { notFound } from "next/navigation"
 import PostCard from "@/components/post-card"
 import { booksPortableTextComponents } from "@/lib/portable-text-components"
 import { useEffect, useState } from "react"
-import {BackButton} from "@/components/backbutton"
-
-async function getPost(slug: string): Promise<Post | null> {
-  try {
-    const query = `
-      *[_type == "post" && slug.current == $slug && category->type == "books"][0] {
-        _id,
-        title,
-        slug,
-        category->{
-          _id,
-          name,
-          type,
-          subcategory,
-          slug
-        },
-        featuredImage,
-        excerpt,
-        content,
-        _createdAt
-      }
-    `
-
-    return await client.fetch(query, { slug })
-  } catch (error) {
-    console.error("Error fetching post:", error)
-    return null
-  }
-}
-
-async function getRelatedPosts(categoryId: string, currentPostId: string): Promise<Post[]> {
-  try {
-    const query = `
-      *[_type == "post" && category._ref == $categoryId && _id != $currentPostId] | order(_createdAt desc) [0...3] {
-        _id,
-        title,
-        slug,
-        category->{
-          _id,
-          name,
-          type,
-          subcategory,
-          slug
-        },
-        featuredImage,
-        excerpt,
-        _createdAt
-      }
-    `
-
-    const posts = await client.fetch(query, { categoryId, currentPostId })
-    return posts || []
-  } catch (error) {
-    console.error("Error fetching related posts:", error)
-    return []
-  }
-}
+import { BackButton } from "@/components/backbutton"
+import { getPostsByCategory, getRelatedPosts } from "@/app/actions/posts"
 
 interface BooksPostPageClientProps {
   slug: string
@@ -87,7 +32,7 @@ export default function BooksPostPageClient({ slug }: BooksPostPageClientProps) 
       setLoading(true)
       setError(null)
       try {
-        const fetchedPost = await getPost(slug)
+        const fetchedPost = await getPostsByCategory("books", slug)
         if (!fetchedPost) {
           notFound()
         }
@@ -109,7 +54,6 @@ export default function BooksPostPageClient({ slug }: BooksPostPageClientProps) 
   if (loading) {
     return (
       <div className="min-h-screen bg-background relative overflow-hidden flex items-center justify-center">
-        {/* Books-themed floating elements */}
         <div className="fixed inset-0 pointer-events-none">
           <div className="absolute top-20 left-10 w-2 h-2 bg-amber-500/30 rounded-full animate-pulse" />
           <div className="absolute top-40 right-20 w-1 h-1 bg-orange-400/40 rounded-full animate-ping" />
@@ -119,7 +63,6 @@ export default function BooksPostPageClient({ slug }: BooksPostPageClientProps) 
         </div>
 
         <div className="relative z-10 text-center">
-          {/* Animated loading spinner with book theme */}
           <div className="relative mb-8">
             <div className="w-16 h-16 border-4 border-amber-500/20 border-t-amber-500 rounded-full animate-spin mx-auto"></div>
             <div
@@ -128,7 +71,6 @@ export default function BooksPostPageClient({ slug }: BooksPostPageClientProps) 
             ></div>
           </div>
 
-          {/* Loading text with gradient and serif font */}
           <div className="space-y-4">
             <h2 className="text-2xl font-bold font-serif bg-gradient-to-r from-amber-400 via-orange-300 to-amber-500 bg-clip-text text-transparent">
               Loading Book Review
@@ -147,7 +89,6 @@ export default function BooksPostPageClient({ slug }: BooksPostPageClientProps) 
             <p className="text-sm text-muted-foreground font-serif">Preparing your literary journey...</p>
           </div>
 
-          {/* Subtle background glow */}
           <div className="absolute inset-0 bg-gradient-to-r from-amber-500/5 via-orange-500/5 to-amber-600/5 rounded-full blur-3xl -z-10"></div>
         </div>
       </div>
@@ -164,7 +105,6 @@ export default function BooksPostPageClient({ slug }: BooksPostPageClientProps) 
 
   return (
     <div className="min-h-screen bg-background relative overflow-hidden">
-      {/* Books-themed floating elements */}
       <div className="fixed inset-0 pointer-events-none">
         <div className="absolute top-20 left-10 w-2 h-2 bg-amber-500/30 rounded-full animate-pulse" />
         <div className="absolute top-40 right-20 w-1 h-1 bg-orange-400/40 rounded-full animate-ping" />
@@ -176,7 +116,6 @@ export default function BooksPostPageClient({ slug }: BooksPostPageClientProps) 
       <Navigation />
 
       <main className="pt-16 relative z-10">
-        {/* Hero Section */}
         <div className="relative bg-gradient-to-br from-amber-500/5 via-orange-500/5 to-amber-600/5 border-b border-amber-500/10">
           <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:50px_50px]" />
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
@@ -227,7 +166,6 @@ export default function BooksPostPageClient({ slug }: BooksPostPageClientProps) 
           </div>
         </div>
 
-        {/* Article Content - Enhanced for comfortable reading */}
         <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="relative">
             <div className="absolute inset-0 bg-gradient-to-b from-amber-500/[0.02] via-transparent to-orange-500/[0.02] rounded-2xl" />
@@ -265,18 +203,20 @@ export default function BooksPostPageClient({ slug }: BooksPostPageClientProps) 
                       Reading Time: {readingTime} minutes
                     </span>
                     <span className="text-muted-foreground">
-                      {[
-                      "Grab a mug of tea ☕",
-                      "Wrap yourself in a blanket 🧣",
-                      "Light a scented candle 🕯️",
-                      "Find a comfy chair 🛋️",
-                      "Put on your favorite playlist 🎶",
-                      "Snuggle up with your pet 🐾",
-                      "Let the rain set the mood 🌧️",
-                      "Enjoy a sweet treat 🍪",
-                      "Dim the lights for ambiance 💡",
-                      "Take a deep breath and relax 🌿"
-                      ][Math.floor(Math.random() * 10)]}
+                      {
+                        [
+                          "Grab a mug of tea ☕",
+                          "Wrap yourself in a blanket 🧣",
+                          "Light a scented candle 🕯️",
+                          "Find a comfy chair 🛋️",
+                          "Put on your favorite playlist 🎶",
+                          "Snuggle up with your pet 🐾",
+                          "Let the rain set the mood 🌧️",
+                          "Enjoy a sweet treat 🍪",
+                          "Dim the lights for ambiance 💡",
+                          "Take a deep breath and relax 🌿",
+                        ][Math.floor(Math.random() * 10)]
+                      }
                     </span>
                   </div>
                 </div>
@@ -287,7 +227,6 @@ export default function BooksPostPageClient({ slug }: BooksPostPageClientProps) 
           </div>
         </article>
 
-        {/* Related Posts */}
         {relatedPosts.length > 0 && (
           <section className="border-t border-amber-500/10 bg-gradient-to-br from-amber-500/5 to-orange-500/5 py-16">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

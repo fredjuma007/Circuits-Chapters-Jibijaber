@@ -57,20 +57,21 @@ export function SplitHero() {
 
           <div className="grid grid-cols-2 gap-3 mb-10 w-full max-w-lg">
             {[
-              { icon: Code, title: "Development", desc: "Latest frameworks & tools" },
-              { icon: Zap, title: "Hardware", desc: "Cutting-edge devices" },
-              //{ icon: Sparkles, title: "AI & ML", desc: "Future technologies" },
-              //{ icon: ArrowRight, title: "Trends", desc: "Industry insights" },
+              { icon: Code, title: "Apps & Tools", desc: "Latest frameworks & tools", tag: "apps-tools" },
+              { icon: Zap, title: "AI", desc: "Artificial Intelligence", tag: "ai" },
+              { icon: Sparkles, title: "Reviews", desc: "Tech reviews & analysis", tag: "reviews" },
+              { icon: ArrowRight, title: "Recommendations", desc: "Curated picks", tag: "recommendations" },
             ].map((item, index) => (
-              <div
+              <Link
                 key={item.title}
-                className="group bg-background/40 backdrop-blur-sm rounded-xl p-4 border border-blue-500/20 hover:border-blue-500/40 hover:bg-blue-500/5 transition-all duration-300"
+                href={`/tech?tag=${item.tag}`}
+                className="group bg-background/40 backdrop-blur-sm rounded-xl p-4 border border-blue-500/20 hover:border-blue-500/40 hover:bg-blue-500/5 transition-all duration-300 cursor-pointer"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 <item.icon className="w-6 h-6 text-blue-500 mb-2 group-hover:scale-110 transition-transform duration-300" />
                 <h3 className="font-semibold text-sm mb-1">{item.title}</h3>
                 <p className="text-xs text-muted-foreground">{item.desc}</p>
-              </div>
+              </Link>
             ))}
           </div>
 
@@ -119,20 +120,21 @@ export function SplitHero() {
 
           <div className="grid grid-cols-2 gap-3 mb-10 w-full max-w-lg">
             {[
-              { icon: BookOpen, title: "Reviews", desc: "Honest & insightful" },
-              { icon: Bookmark, title: "Curated Lists", desc: "Handpicked favorites" },
-             // { icon: Sparkles, title: "Author Spotlights", desc: "Meet the creators" },
-              //{ icon: ArrowRight, title: "Analysis", desc: "Deep literary dives" },
+              { icon: BookOpen, title: "Reviews", desc: "Honest & insightful", tag: "reviews" },
+              { icon: Bookmark, title: "Curated Lists", desc: "Handpicked favorites", tag: "curated-lists" },
+              { icon: Sparkles, title: "Recommendations", desc: "Must-read picks", tag: "recommendations" },
+              { icon: BookOpen, title: "Author Spotlights", desc: "Meet the creators", tag: "author-spotlights" },
             ].map((item, index) => (
-              <div
+              <Link
                 key={item.title}
-                className="group bg-background/40 backdrop-blur-sm rounded-xl p-4 border border-amber-500/20 hover:border-amber-500/40 hover:bg-amber-500/5 transition-all duration-300"
+                href={`/books?tag=${item.tag}`}
+                className="group bg-background/40 backdrop-blur-sm rounded-xl p-4 border border-amber-500/20 hover:border-amber-500/40 hover:bg-amber-500/5 transition-all duration-300 cursor-pointer"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 <item.icon className="w-6 h-6 text-amber-500 mb-2 group-hover:scale-110 transition-transform duration-300" />
                 <h3 className="font-semibold text-sm mb-1">{item.title}</h3>
                 <p className="text-xs text-muted-foreground">{item.desc}</p>
-              </div>
+              </Link>
             ))}
           </div>
 

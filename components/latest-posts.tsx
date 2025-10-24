@@ -32,10 +32,11 @@ async function getLatestPosts(type: "tech" | "books", limit = 3): Promise<Post[]
 interface LatestPostsProps {
   type: "tech" | "books"
   title: string
+  limit?: number
 }
 
-export async function LatestPosts({ type, title }: LatestPostsProps) {
-  const posts: Post[] = await getLatestPosts(type)
+export async function LatestPosts({ type, title, limit = 3 }: LatestPostsProps) {
+  const posts: Post[] = await getLatestPosts(type, limit)
 
   return (
     <section
@@ -187,9 +188,7 @@ export async function LatestPosts({ type, title }: LatestPostsProps) {
                   : "Amazing book reviews and literary content coming soon!"}
               </p>
 
-              <p className="text-sm text-muted-foreground/70">
-                Stay tuned for updates and new posts in this category.
-              </p>
+              <p className="text-sm text-muted-foreground/70">Stay tuned for updates and new posts in this category.</p>
             </div>
           </div>
         )}

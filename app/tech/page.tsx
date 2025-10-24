@@ -3,6 +3,7 @@
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import PostCard from "@/components/post-card"
+import PostCardSkeleton from "@/components/post-card-skeleton"
 import { client, type Post, type Category } from "@/lib/sanity"
 import { Zap } from "lucide-react"
 import { useEffect, useState } from "react"
@@ -83,12 +84,20 @@ export default function TechPage() {
           theme="tech"
         />
 
-        {featuredPost && (
+        {loading ? (
           <section className="py-12 relative border-b border-border/10">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <FeaturedBlogCard post={featuredPost} theme="tech" />
+              <PostCardSkeleton theme="tech" />
             </div>
           </section>
+        ) : (
+          featuredPost && (
+            <section className="py-12 relative border-b border-border/10">
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <FeaturedBlogCard post={featuredPost} theme="tech" />
+              </div>
+            </section>
+          )
         )}
 
         {categories.length > 0 && (
@@ -127,7 +136,18 @@ export default function TechPage() {
 
         <section className="py-16 relative">
           <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            {allPosts.length > 0 ? (
+            {loading ? (
+              <>
+                <h2 className="text-3xl font-bold mb-12 text-balance bg-gradient-to-r from-blue-600 via-cyan-500 to-blue-700 bg-clip-text text-transparent">
+                  Loading Articles...
+                </h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {[...Array(6)].map((_, i) => (
+                    <PostCardSkeleton key={i} theme="tech" />
+                  ))}
+                </div>
+              </>
+            ) : allPosts.length > 0 ? (
               <>
                 <h2 className="text-3xl font-bold mb-12 text-balance bg-gradient-to-r from-blue-600 via-cyan-500 to-blue-700 bg-clip-text text-transparent">
                   {selectedCategory ? "Filtered Articles" : "All Tech Posts"}

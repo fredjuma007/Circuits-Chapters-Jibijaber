@@ -59,8 +59,8 @@ export function SplitHero() {
             {[
               { icon: Code, title: "Apps & Tools", desc: "Latest frameworks & tools", tag: "apps-tools" },
               { icon: Zap, title: "AI", desc: "Artificial Intelligence", tag: "ai" },
-              { icon: Sparkles, title: "Reviews", desc: "Tech reviews & analysis", tag: "reviews" },
-              { icon: ArrowRight, title: "Recommendations", desc: "Curated picks", tag: "recommendations" },
+              // { icon: Sparkles, title: "Reviews", desc: "Tech reviews & analysis", tag: "reviews" },
+              // { icon: ArrowRight, title: "Recommendations", desc: "Curated picks", tag: "recommendations" },
             ].map((item, index) => (
               <Link
                 key={item.title}
@@ -122,8 +122,8 @@ export function SplitHero() {
             {[
               { icon: BookOpen, title: "Reviews", desc: "Honest & insightful", tag: "reviews" },
               { icon: Bookmark, title: "Curated Lists", desc: "Handpicked favorites", tag: "curated-lists" },
-              { icon: Sparkles, title: "Recommendations", desc: "Must-read picks", tag: "recommendations" },
-              { icon: BookOpen, title: "Author Spotlights", desc: "Meet the creators", tag: "author-spotlights" },
+              // { icon: Sparkles, title: "Recommendations", desc: "Must-read picks", tag: "recommendations" },
+              // { icon: BookOpen, title: "Author Spotlights", desc: "Meet the creators", tag: "author-spotlights" },
             ].map((item, index) => (
               <Link
                 key={item.title}

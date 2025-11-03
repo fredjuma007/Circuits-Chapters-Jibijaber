@@ -42,10 +42,37 @@ interface LinkMark {
   blank?: boolean
 }
 
+interface BlockNode {
+  textColor?: string
+  alignment?: "left" | "center" | "right"
+}
+
 const getYouTubeId = (url: string): string | null => {
   const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/
   const match = url.match(regExp)
   return match && match[2].length === 11 ? match[2] : null
+}
+
+const getColorClass = (color?: string): string => {
+  const colorMap: Record<string, string> = {
+    blue: "text-blue-600 dark:text-blue-400",
+    amber: "text-amber-600 dark:text-amber-400",
+    gray: "text-gray-600 dark:text-gray-400",
+    red: "text-red-600 dark:text-red-400",
+    green: "text-green-600 dark:text-green-400",
+    purple: "text-purple-600 dark:text-purple-400",
+    default: "",
+  }
+  return colorMap[color || "default"]
+}
+
+const getAlignmentClass = (alignment?: string): string => {
+  const alignmentMap: Record<string, string> = {
+    left: "text-left",
+    center: "text-center",
+    right: "text-right",
+  }
+  return alignmentMap[alignment || "left"]
 }
 
 const sharedComponents = {
@@ -171,13 +198,33 @@ const sharedComponents = {
         {children}
       </code>
     ),
+
+    textColor: ({ children, value }: PortableTextMarkComponentProps<any>) => {
+      const color = value?.color || "default"
+      const colorClass = getColorClass(color)
+      return <span className={colorClass}>{children}</span>
+    },
+
+    textAlign: ({ children, value }: PortableTextMarkComponentProps<any>) => {
+      const alignment = value?.align || "left"
+      const alignmentClass = getAlignmentClass(alignment)
+      return <span className={alignmentClass}>{children}</span>
+    },
   },
 
   block: {
-    h2: ({ children }: any) => <h2 className="text-2xl font-bold mt-8 mb-4">{children}</h2>,
-    h3: ({ children }: any) => <h3 className="text-xl font-bold mt-6 mb-3">{children}</h3>,
-    h4: ({ children }: any) => <h4 className="text-lg font-bold mt-4 mb-2">{children}</h4>,
-    h5: ({ children }: any) => <h5 className="text-base font-bold mt-3 mb-2">{children}</h5>,
+    h2: ({ children }: any) => {
+      return <h2 className="text-2xl font-bold mt-8 mb-4">{children}</h2>
+    },
+    h3: ({ children }: any) => {
+      return <h3 className="text-xl font-bold mt-6 mb-3">{children}</h3>
+    },
+    h4: ({ children }: any) => {
+      return <h4 className="text-lg font-bold mt-4 mb-2">{children}</h4>
+    },
+    h5: ({ children }: any) => {
+      return <h5 className="text-base font-bold mt-3 mb-2">{children}</h5>
+    },
     highlight: ({ children }: any) => <mark className="bg-yellow-200 dark:bg-yellow-800 px-1 rounded">{children}</mark>,
     blockquote: ({ children }: any) => (
       <blockquote className="border-l-4 pl-4 italic my-6 text-gray-600 dark:text-gray-400">{children}</blockquote>
@@ -236,14 +283,12 @@ export const techPortableTextComponents: PortableTextComponents = {
   },
   block: {
     ...sharedComponents.block,
-    h2: ({ children }: any) => (
-      <h2 className="text-2xl font-bold mt-8 mb-4 text-blue-600 dark:text-blue-400 border-b border-blue-200 dark:border-blue-800 pb-2">
-        {children}
-      </h2>
-    ),
-    h3: ({ children }: any) => (
-      <h3 className="text-xl font-bold mt-6 mb-3 text-blue-500 dark:text-blue-300">{children}</h3>
-    ),
+    h2: ({ children }: any) => {
+      return <h2 className="text-2xl font-bold mt-8 mb-4">{children}</h2>
+    },
+    h3: ({ children }: any) => {
+      return <h3 className="text-xl font-bold mt-6 mb-3">{children}</h3>
+    },
     blockquote: ({ children }: any) => (
       <blockquote className="border-l-4 border-blue-500 bg-blue-50 dark:bg-blue-950 pl-4 py-2 italic my-6 text-blue-900 dark:text-blue-100">
         {children}
@@ -302,16 +347,14 @@ export const booksPortableTextComponents: PortableTextComponents = {
   },
   block: {
     ...sharedComponents.block,
-    h2: ({ children }: any) => (
-      <h2 className="text-2xl font-bold mt-8 mb-4 text-amber-700 dark:text-amber-400 border-b border-amber-200 dark:border-amber-800 pb-2 font-serif">
-        {children}
-      </h2>
-    ),
-    h3: ({ children }: any) => (
-      <h3 className="text-xl font-bold mt-6 mb-3 text-amber-600 dark:text-amber-300 font-serif">{children}</h3>
-    ),
+    h2: ({ children }: any) => {
+      return <h2 className="text-2xl font-bold mt-8 mb-4">{children}</h2>
+    },
+    h3: ({ children }: any) => {
+      return <h3 className="text-xl font-bold mt-6 mb-3">{children}</h3>
+    },
     blockquote: ({ children }: any) => (
-      <blockquote className="border-l-4 border-amber-600 bg-amber-50 dark:bg-amber-950 pl-4 py-2 italic my-6 text-amber-900 dark:text-amber-100 font-serif">
+      <blockquote className="border-l-4 border-amber-600 bg-amber-50 dark:bg-amber-950 pl-4 py-2 italic my-6 text-amber-900 dark:text-amber-100">
         {children}
       </blockquote>
     ),

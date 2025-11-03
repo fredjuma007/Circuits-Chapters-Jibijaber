@@ -49,7 +49,7 @@ export const post = defineType({
       title: "Content",
       type: "array",
       of: [
-        // Enhanced block type with headings, quotes, and highlights
+        // Enhanced block type with headings, quotes, highlights, color, and alignment options
         {
           type: "block",
           styles: [
@@ -88,6 +88,47 @@ export const post = defineType({
                     type: "boolean",
                     title: "Open in new tab",
                     initialValue: false,
+                  },
+                ],
+              },
+              {
+                name: "textColor",
+                type: "object",
+                title: "Text Color",
+                fields: [
+                  {
+                    name: "color",
+                    type: "string",
+                    title: "Color",
+                    options: {
+                      list: [
+                        { title: "Default", value: "default" },
+                        { title: "Blue", value: "blue" },
+                        { title: "Amber", value: "amber" },
+                        { title: "Red", value: "red" },
+                        { title: "Green", value: "green" },
+                        { title: "Purple", value: "purple" },
+                      ],
+                    },
+                  },
+                ],
+              },
+              {
+                name: "textAlign",
+                type: "object",
+                title: "Alignment",
+                fields: [
+                  {
+                    name: "align",
+                    type: "string",
+                    title: "Align",
+                    options: {
+                      list: [
+                        { title: "Left", value: "left" },
+                        { title: "Center", value: "center" },
+                        { title: "Right", value: "right" },
+                      ],
+                    },
                   },
                 ],
               },

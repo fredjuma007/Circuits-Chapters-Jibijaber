@@ -7,6 +7,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { Suspense } from "react"
 import "./globals.css"
 import ScrollUpButton from "@/components/scrollup"
+import ComingSoonWrapper from "@/components/coming-soon-wrapper"
 
 export const metadata: Metadata = {
   title: "Circuits & Chapters Jibijaber",
@@ -26,7 +27,7 @@ export default function RootLayout({
       <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable}`}>
         <Suspense fallback={null}>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-            {children}
+            <ComingSoonWrapper>{children}</ComingSoonWrapper>
           </ThemeProvider>
         </Suspense>
         <Analytics />

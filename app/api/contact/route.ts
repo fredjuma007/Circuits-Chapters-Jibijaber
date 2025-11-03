@@ -36,18 +36,18 @@ export async function POST(request: NextRequest) {
       status: "new",
     })
 
-    console.log("[v0] Document created successfully:", result._id)
+    console.log("[✅] Document created successfully:", result._id)
 
     return NextResponse.json({ message: "Contact form submitted successfully", id: result._id }, { status: 200 })
   } catch (error) {
-    console.error("[v0] Error submitting contact form:", error)
+    console.error("[❌] Error submitting contact form:", error)
 
     if (error instanceof Error) {
-      console.log("[v0] Error message:", error.message)
-      console.log("[v0] Error stack:", error.stack)
+      console.log("[❌] Error message:", error.message)
+      console.log("[❌] Error stack:", error.stack)
     }
 
-    console.log("[v0] Full error object:", JSON.stringify(error, null, 2))
+    console.log("[❌] Full error object:", JSON.stringify(error, null, 2))
 
     if (error instanceof Error) {
       // Check for Sanity permission errors

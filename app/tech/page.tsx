@@ -79,8 +79,8 @@ export default function TechPage() {
       <main className="pt-16 relative">
         <MinimalistHero
           icon={<Zap className="w-8 h-8 text-blue-500" />}
-          title="Tech"
-          subtitle="Where innovation sparks and technology comes alive"
+          title="Tech Jibijaber"
+          subtitle="Exploring tech innovations, trends, and insights."
           theme="tech"
         />
 

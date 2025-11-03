@@ -166,39 +166,23 @@ export default function ComingSoon() {
             <span className="text-xs font-medium text-primary">Where Innovation Meets Imagination</span>
           </div>
 
-          <div className="space-y-2 mb-4">
-            <h1 className="text-4xl md:text-5xl font-black tracking-tight">
-              <span className="block bg-gradient-to-r from-primary via-primary to-blue-600 bg-clip-text text-transparent">
-                CIRCUITS
-              </span>
-              <span className="block text-lg font-light text-muted-foreground">&</span>
-              <span className="block bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 bg-clip-text text-transparent">
-                CHAPTERS
-              </span>
-            </h1>
-
-            <div className="flex items-center justify-center gap-3 text-sm md:text-base text-muted-foreground pt-2">
-              <div className="flex items-center gap-1.5">
-                <Zap className="w-4 h-4 text-primary" />
-                <span>Tech Sparks</span>
-              </div>
-              <div className="w-px h-4 bg-border" />
-              <div className="flex items-center gap-1.5">
-                <BookOpen className="w-4 h-4 text-amber-500" />
-                <span>Story Pages</span>
-              </div>
-            </div>
+          <div className="mb-6 flex justify-center">
+            <img
+              src="/Circuits & Chapters logo.png"
+              alt="Circuits & Chapters"
+              className="h-40 md:h-48 w-auto object-contain"
+            />
           </div>
 
           <p className="text-base md:text-lg text-muted-foreground max-w-xl mx-auto mb-8 leading-relaxed">
-            The ultimate blog platform where cutting-edge technology meets timeless storytelling.
+            The ultimate platform where cutting-edge technology meets timeless storytelling.
           </p>
         </div>
 
         <div className="bg-background/40 backdrop-blur border border-border/50 rounded-xl p-6 md:p-8 mb-6 shadow-2xl">
           <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-2 text-balance">Be Among the First</h2>
           <p className="text-sm md:text-base text-muted-foreground mb-6 leading-relaxed">
-            Get notified when we launch! Subscribe now to stay updated on our journey.
+            Get exclusive early access to Circuits & Chapters and join our community.
           </p>
 
           <form onSubmit={handleSubscribe} className="space-y-3">

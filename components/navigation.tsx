@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import Link from "next/link"
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
@@ -28,11 +29,14 @@ export function Navigation() {
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           <Link href="/" className="group flex items-center space-x-3">
-            <div className="relative">
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-500 via-purple-500 to-amber-500 rounded-xl flex items-center justify-center transform group-hover:rotate-3 transition-transform duration-300">
-                <span className="text-white font-bold text-lg">C&C</span>
-              </div>
-              <div className="absolute inset-0 w-10 h-10 bg-gradient-to-br from-blue-500 via-purple-500 to-amber-500 rounded-xl opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-300" />
+            <div className="relative w-10 h-10 transform group-hover:scale-110 transition-transform duration-300">
+              <Image
+                src="/Circuits & Chapters logo.png"
+                alt="Circuits & Chapters"
+                fill
+                className="object-contain"
+                priority
+              />
             </div>
             <div className="hidden sm:block">
               <span className="font-bold text-xl tracking-tight text-balance group-hover:text-primary transition-colors duration-300">

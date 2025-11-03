@@ -79,8 +79,8 @@ export default function BooksPage() {
       <main className="pt-16 relative">
         <MinimalistHero
           icon={<BookOpen className="w-8 h-8 text-amber-500" />}
-          title="Books"
-          subtitle="Where stories come alive and literature meets life"
+          title="Chapters & Stories"
+          subtitle=" Dive into a collection of book reviews and literary explorations."
           theme="books"
         />
 

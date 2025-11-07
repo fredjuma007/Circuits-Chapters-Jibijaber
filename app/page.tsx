@@ -3,11 +3,13 @@ import { EpicHero } from "@/components/epic-hero"
 import { SplitHero } from "@/components/split-hero"
 import { Footer } from "@/components/footer"
 import { LatestPosts } from "@/components/latest-posts"
+import { PageLoading } from "@/components/page-loading"
 
 export default function HomePage() {
   return (
     <main className="min-h-screen">
       <Navigation />
+      <PageLoading />
 
       {/* Mobile: Epic Hero + 1 post from each category */}
       <div className="md:hidden">

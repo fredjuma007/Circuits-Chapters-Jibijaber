@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     siteName: "Circuits & Chapters",
     images: [
       {
-        url: "https://circuits-chapters.vercel.app/og-image.png",
+        url: "https://circuits-chapters.vercel.app/Circuits & Chapters logo.png",
         width: 1200,
         height: 630,
         alt: "Circuits & Chapters Open Graph Image",

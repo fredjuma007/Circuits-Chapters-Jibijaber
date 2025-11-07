@@ -13,6 +13,23 @@ export const metadata: Metadata = {
   title: "Circuits & Chapters Jibijaber",
   description: "Where Tech Sparks Meet Story Pages - A blog exploring technology and literature",
   generator: "Next.js",
+  authors: [{ name: "Fred Juma" }],
+  keywords: ["Tech Blog", "Book Reviews", "Programming", "Literature", "Technology", "Books", "book blog", "tech articles"],
+  openGraph: {
+    title: "Circuits & Chapters Jibijaber",
+    description: "Where Tech Sparks Meet Story Pages - A blog exploring technology and literature",
+    url: "https://circuits-chapters.vercel.app",
+    siteName: "Circuits & Chapters",
+    images: [
+      {
+        url: "https://circuits-chapters.vercel.app/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Circuits & Chapters Open Graph Image",
+      },
+    ],
+    type: "website",
+  },
 }
 
 export const revalidate = 0

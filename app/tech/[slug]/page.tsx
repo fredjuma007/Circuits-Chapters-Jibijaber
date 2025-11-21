@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import TechPostPageClient from "./TechPostPageClient"
 import { client, urlFor } from "@/lib/sanity"
 
-export const revalidate = 60
+export const dynamic = "force-dynamic"
 
 interface TechPostPageProps {
   params: Promise<{ slug: string }>

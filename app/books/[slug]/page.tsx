@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import BooksPostPageClient from "./BooksPostPageClient"
 import { client, urlFor } from "@/lib/sanity"
 
-export const revalidate = 60
+export const dynamic = "force-dynamic"
 
 interface BooksPostPageProps {
   params: Promise<{ slug: string }>

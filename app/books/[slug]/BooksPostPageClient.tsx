@@ -53,43 +53,17 @@ export default function BooksPostPageClient({ slug }: BooksPostPageClientProps) 
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-background relative overflow-hidden flex items-center justify-center">
-        <div className="fixed inset-0 pointer-events-none">
-          <div className="absolute top-20 left-10 w-2 h-2 bg-amber-500/30 rounded-full animate-pulse" />
-          <div className="absolute top-40 right-20 w-1 h-1 bg-orange-400/40 rounded-full animate-ping" />
-          <div className="absolute bottom-40 left-1/4 w-3 h-3 bg-amber-400/20 rounded-full animate-bounce" />
-          <div className="absolute top-1/3 right-1/3 w-1 h-1 bg-orange-500/50 rounded-full animate-pulse" />
-          <div className="absolute bottom-20 right-10 w-2 h-2 bg-amber-300/30 rounded-full animate-ping" />
-        </div>
-
+      <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="relative z-10 text-center">
           <div className="relative mb-8">
+            {/* Simple, efficient spinner using only transform for performance */}
             <div className="w-16 h-16 border-4 border-amber-500/20 border-t-amber-500 rounded-full animate-spin mx-auto"></div>
-            <div
-              className="absolute inset-0 w-16 h-16 border-4 border-transparent border-r-orange-400 rounded-full animate-spin mx-auto"
-              style={{ animationDirection: "reverse", animationDuration: "1.5s" }}
-            ></div>
           </div>
 
           <div className="space-y-4">
-            <h2 className="text-2xl font-bold font-serif bg-gradient-to-r from-amber-400 via-orange-300 to-amber-500 bg-clip-text text-transparent">
-              Loading Book Review
-            </h2>
-            <div className="flex items-center justify-center space-x-2 text-muted-foreground">
-              <div className="w-2 h-2 bg-amber-400 rounded-full animate-bounce"></div>
-              <div
-                className="w-2 h-2 bg-orange-400 rounded-full animate-bounce"
-                style={{ animationDelay: "0.1s" }}
-              ></div>
-              <div
-                className="w-2 h-2 bg-amber-500 rounded-full animate-bounce"
-                style={{ animationDelay: "0.2s" }}
-              ></div>
-            </div>
+            <h2 className="text-2xl font-bold font-serif text-amber-400">Loading Book Review</h2>
             <p className="text-sm text-muted-foreground font-serif">Preparing your literary journey...</p>
           </div>
-
-          <div className="absolute inset-0 bg-gradient-to-r from-amber-500/5 via-orange-500/5 to-amber-600/5 rounded-full blur-3xl -z-10"></div>
         </div>
       </div>
     )
@@ -104,18 +78,10 @@ export default function BooksPostPageClient({ slug }: BooksPostPageClientProps) 
   }
 
   return (
-    <div className="min-h-screen bg-background relative overflow-hidden">
-      <div className="fixed inset-0 pointer-events-none">
-        <div className="absolute top-20 left-10 w-2 h-2 bg-amber-500/30 rounded-full animate-pulse" />
-        <div className="absolute top-40 right-20 w-1 h-1 bg-orange-400/40 rounded-full animate-ping" />
-        <div className="absolute bottom-40 left-1/4 w-3 h-3 bg-amber-400/20 rounded-full animate-bounce" />
-        <div className="absolute top-1/3 right-1/3 w-1 h-1 bg-orange-500/50 rounded-full animate-pulse" />
-        <div className="absolute bottom-20 right-10 w-2 h-2 bg-amber-300/30 rounded-full animate-ping" />
-      </div>
-
+    <div className="min-h-screen bg-background">
       <Navigation />
 
-      <main className="pt-16 relative z-10">
+      <main className="pt-16">
         <div className="relative bg-gradient-to-br from-amber-500/5 via-orange-500/5 to-amber-600/5 border-b border-amber-500/10">
           <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:50px_50px]" />
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">

@@ -3,7 +3,7 @@ import Image from "next/image"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { type Post, urlFor } from "@/lib/sanity"
-import { Calendar } from "lucide-react"
+import { Calendar, ArrowRight } from "lucide-react"
 
 interface PostCardProps {
   post: Post
@@ -72,9 +72,25 @@ export default function PostCard({ post, theme = "tech" }: PostCardProps) {
             {post.title}
           </h3>
 
-          <p className="text-muted-foreground text-sm leading-relaxed text-pretty">{post.excerpt}</p>
+          <p className="text-muted-foreground text-sm leading-relaxed text-pretty mb-6">{post.excerpt}</p>
         </CardContent>
       </Link>
+
+        <div className="px-6 pb-6 relative z-10">
+          <Link href={`/${theme}/${post.slug.current}`}>
+            <button
+          className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-300 w-fit ${
+            theme === "tech"
+              ? "bg-tech-primary/10 text-tech-primary hover:bg-tech-primary/20 hover:text-white"
+              : "bg-books-primary/10 text-books-primary hover:bg-books-primary/20 hover:text-white"
+          }`}
+            >
+          Read Blog
+          <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+            </button>
+          </Link>
+        </div>
+
 
       <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/5 to-transparent" />
     </Card>

@@ -56,7 +56,10 @@ export default function BooksPage() {
         ])
 
         setPosts(fetchedPosts || [])
-        setCategories(fetchedCategories || [])
+
+        const postsWithCategoryIds = new Set(fetchedPosts.map((post: { category: { _id: any } }) => post.category._id))
+        const categoriesWithPosts = (fetchedCategories || []).filter((cat: { _id: unknown }) => postsWithCategoryIds.has(cat._id))
+        setCategories(categoriesWithPosts)
       } catch (error) {
         console.error("Error fetching data:", error)
       } finally {
@@ -70,7 +73,7 @@ export default function BooksPage() {
   const filteredPosts = selectedCategory ? posts.filter((post) => post.category._id === selectedCategory) : posts
 
   const featuredPost = filteredPosts[0]
-  const allPosts = filteredPosts.slice(1)
+  const allPosts = filteredPosts
 
   return (
     <div className="min-h-screen books-theme relative overflow-hidden">

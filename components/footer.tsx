@@ -63,16 +63,20 @@ export function Footer() {
           {/* Brand */}
           <div className="col-span-1 md:col-span-2">
             <Link href="/" className="flex items-center space-x-2 mb-4 group">
-              <div className="relative w-8 h-8 bg-gradient-to-br from-blue-500 to-amber-500 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                <span className="text-white font-bold text-sm">C&C</span>
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 to-amber-400/20 rounded-lg blur-sm group-hover:blur-md transition-all duration-300" />
-              </div>
+                <img
+                src="/Circuits&Chapterslogo.png"
+                alt="Circuits & Chapters logo"
+                className="w-8 h-8 rounded-lg object-cover group-hover:scale-110 transition-transform duration-300"
+                width={32}
+                height={32}
+                loading="lazy"
+                />
               <span className="font-bold text-xl text-balance bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text group-hover:from-blue-500 group-hover:to-amber-500 transition-all duration-300">
                 Circuits & Chapters
               </span>
             </Link>
             <p className="text-muted-foreground mb-6 text-pretty">
-              Where Tech Sparks Meet Story Pages. Exploring the intersection of technology and literature.
+              Subscribe to our newsletter for the latest tech insights and book related updates.
             </p>
 
             <form onSubmit={handleNewsletterSubmit} className="max-w-sm">
